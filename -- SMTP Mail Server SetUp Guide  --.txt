@@ -1,0 +1,44 @@
+--> SMTP Mail Server SetUp Guide  <--
+ 
+$ sudo apt update
+$ sudo apt-get install systemd -y
+$ sudo hostnamectl set-hostname stepstodevops.com
+$ sudo apt install postfix -y
+$ sudo apt install mailutils -y
+$ sudo mailx -e
+$ cd /etc/postfix/
+$ sudo cp main.cf main.cf_bkp
+
+## check backed file
+$ ls -a
+
+## Add/Edit Lines in main.cf 
+
+myhostname = stepstodevops.com     --- edit
+relayhost = [smtp.gmail.com]:587    --- edit
+inet_interfaces = loopback-only       --- edit
+smtp_sasl_auth_enable = yes  --- add
+smtp_sasl_security_options = noanonymous  --- add
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd  --- add
+smtp_use_tls = yes  --- add
+smtp_tls_security_level = encrypt  --- add
+
+$ sudo touch sasl_passwd
+
+## Add Line in sasl_passwd
+
+[smtp.gmail.com]:587 email@gmail.com:piwplutfbxjkjajd   --- replace piwplutfbxjkjajd with the password you got from App Password of Gmail
+
+$ sudo postmap sasl_passwd
+$ sudo chmod 600 sasl_passwd sasl_passwd.db
+
+## Start the Postfix service
+
+$ sudo postfix stop
+$ sudo postfix start
+$ sudo postfix status
+$ sudo postfix reload
+
+## Test Email
+
+echo "Test Mail" | mailx -s "Postfix TEST" stepstodevops@gmail.com
