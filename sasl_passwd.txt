@@ -1,0 +1,3 @@
+## sasl_passwd
+
+[smtp.gmail.com]:587 mail@gmail.com:pmwznutwpxjkjapd
