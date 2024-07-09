@@ -1,0 +1,29 @@
+Requirement ---
+
+sudo apt-get update
+sudo apt-get install python3
+sudo apt-get install awscli
+sudo apt-get install python3-pip
+sudo pip3 install boto3
+
+python --version
+
+# for psutil import issues
+
+sudo pip3 install psutil
+sudo apt-get install python3-psutil
+
+# Verify Installation
+
+python3 -c "import psutil"
+
+If there's no output or error, psutil is installed successfully.
+
+vim ~/.bashrc
+
+Then, add the export command to the file:
+export GmailToken="ahsdhdbdhd"  # that got earlier
+
+aws configure
+
+and have the secret created as per the python script
